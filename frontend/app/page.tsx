@@ -22,7 +22,6 @@ export default function Home() {
       <main className="bg-dark1 text-light3 h-full overflow-hidden ">
         <Header/>
         <SearchBar/>
-        <StudySession name="Hello" isOnline={false} place="School"/>
         <StudySessionList studySessions={studySessions}></StudySessionList>
       </main>
   );
