@@ -22,6 +22,7 @@ export default function Home() {
       <main className="bg-dark1 text-light3 h-full overflow-hidden ">
         <Header/>
         <SearchBar/>
+        <button onClick={async () => {let res = await fetch("http://localhost:3000/"); console.log(res.body)}}>Click me!</button>
         <StudySessionList studySessions={studySessions}></StudySessionList>
       </main>
   );
