@@ -6,8 +6,12 @@ const studentRouter = express.Router();
 const addStudent = db.prepare(`INSERT INTO student (first_name, last_name) VALUES ( ?, ? );`)
 
 studentRouter.post('/add', (req, res) => {
+    if(req.body.first_name == null || req.body.last_name == null || req.body.email == null || req.body.password == null){
+        res.status(400).send("Missing data");
+        return;
+    }
     addStudent.run(req.body.data, req.body.data);
-    console.log(req.body.data);
+    console.log(req.body);
     res.status(200).send("Approved");
 })
 

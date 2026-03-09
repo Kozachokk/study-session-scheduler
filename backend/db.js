@@ -6,7 +6,9 @@ const create_student_table = db.prepare(`
 CREATE TABLE IF NOT EXISTS student (
   student_id INTEGER PRIMARY KEY AUTOINCREMENT,
   first_name TEXT NOT NULL,
-  last_name TEXT NOT NULL
+  last_name TEXT NOT NULL,
+  email TEXT NOT NULL,
+  PASSWORD TEXT NOT NULL
 );`);
 
 const create_session_table = db.prepare(`
