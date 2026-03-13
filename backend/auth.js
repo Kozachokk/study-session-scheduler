@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
+import db from "./db.js"
 
-function authenticateToken(req, res, next){
+export function authenticateToken(req, res, next){
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
     
@@ -17,4 +18,21 @@ function authenticateToken(req, res, next){
     })
 }
 
-export default authenticateToken;
+export function setTokenVersion(token, email){
+    const incrementTokenVersion = db.prepare(`UPDATE student SET token_version = ? WHERE email = ?`);
+    incrementTokenVersion.run(token + 1, email);
+    console.log("Update token to: " + token);
+}
+
+export function generateJWTokens(sub, role, token_version){
+    const payload = { user: sub, role: role, token_version: token_version };
+    const accesstoken = jwt.sign(payload, process.env.JWT_SECRET, {
+        expiresIn: '15m'
+    });
+
+    const refreshtoken = jwt.sign(payload, process.env.JWT_SECRET, {
+        expiresIn: "7d"
+    });
+
+    return { accesstoken: accesstoken, refreshtoken: refreshtoken };
+}

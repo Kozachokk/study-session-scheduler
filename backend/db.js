@@ -8,7 +8,8 @@ CREATE TABLE IF NOT EXISTS student (
   first_name TEXT NOT NULL,
   last_name TEXT NOT NULL,
   email TEXT NOT NULL UNIQUE,
-  PASSWORD TEXT NOT NULL
+  password TEXT NOT NULL,
+  token_version INTEGER NOT NULL
 );`);
 
 const create_session_table = db.prepare(`

@@ -4,7 +4,7 @@ import cookieParser from 'cookie-parser';
 import "dotenv/config"
 import studentRouter from "./routes/studentRouter.js";
 import rootRouter from './routes/rootRouter.js';
-import authenticateToken from './auth.js';
+import { authenticateToken } from './auth.js';
 
 const app = express();
 
