@@ -23,7 +23,6 @@ const create_session_user_bridge = db.prepare(`
 CREATE TABLE IF NOT EXISTS student_session (
   student_id TEXT, 
   session_id TEXT, 
-  PRIMARY KEY (student_id, session_id), 
   FOREIGN KEY (student_id) 
     REFERENCES student (student_id) 
       ON UPDATE CASCADE 

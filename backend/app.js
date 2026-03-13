@@ -1,8 +1,10 @@
 import express from 'express';
 import cors from "cors"
+import cookieParser from 'cookie-parser';
 import "dotenv/config"
 import studentRouter from "./routes/studentRouter.js";
 import rootRouter from './routes/rootRouter.js';
+import authenticateToken from './auth.js';
 
 const app = express();
 
@@ -11,10 +13,16 @@ const logger = function(req, res, next){
   next();
 }
 
-app.use(cors())
-app.use(express.json())
+app.use(cors());
+app.use(express.json());
+app.use(cookieParser());
 app.use(logger);
-app.use('/', rootRouter)
+
+//Login/Signup
+app.use('/', rootRouter);
+
+//Routes
+app.use(authenticateToken);
 app.use('/student', studentRouter);
 
 // Start the server and listen on the specified port
