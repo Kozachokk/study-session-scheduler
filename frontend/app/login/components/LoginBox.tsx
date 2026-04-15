@@ -1,18 +1,38 @@
+'use client';
+import { SubmitEvent, useState } from "react";
+import InputBox from "./InputBox";
+
 function LoginBox(){
-    const logInUser = (e:SubmitEvent) => {
+    const [email, setEmail] = useState<string | null>();
+    const [password, setPassword] = useState<string | null>();
+
+
+
+    const loginUser = async (e:SubmitEvent) => {
         e.preventDefault();
-        console.log("Login");
+        const response = await fetch("http://localhost:3000/auth/login", {
+            method:"POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                email: email,
+                password: password
+            }),
+        })
+        console.log(response);
     }
 
     return(
-    <div className="flex flex-col border-light3 rounded-md border-2 pt-8 pb-4">
-        <h2 className="mb-8 text-5xl">Log In</h2>
-        <label htmlFor='username'>Username:</label>
-        <input type='text' name='username' id='username' className="text-2xl border-2 rounded-md pl-2 selection::bg-transparent mb-2 w-[25vw] ml-[2.5vw] mr-[2.5vw]"></input>
-        <label htmlFor='passwd'>Password:</label>
-        <input type='password' name='passwd' id='passwd' className="text-2xl border-2 rounded-md pl-2 selection::bg-transparent mb-2 w-[25vw] ml-[2.5vw] mr-[2.5vw]"></input>
-        <button type='submit' className="mt-2">Log In</button>
-    </div>
+    <form className="border-light3 rounded-md border-2 pt-8 pb-4" onSubmit={(e:SubmitEvent) => {loginUser(e)}}>
+        <h2 className="mb-8 text-5xl text-center">Log In</h2>
+        
+        <div className="flex flex-col text-left mr-[5vw] ml-[5vw]">
+            <InputBox label="Email: " id="email" type="email" onChange={(event) => {setEmail(event.target.value);}} />
+            <InputBox label="Password" id="password" type="password" onChange={(event) => {setPassword(event.target.value);}} />
+            <button type='submit' className="mt-2">Log In</button>
+        </div>
+    </form>
 )
 }
 

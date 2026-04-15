@@ -6,7 +6,7 @@ export function authenticateToken(req, res, next){
     const token = authHeader && authHeader.split(' ')[1];
     
     if(!token){
-        console.log("token doesnt exits");
+        console.log("Token doesn't exits");
     }
     jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
         if(err){
